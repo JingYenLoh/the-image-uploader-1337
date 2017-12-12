@@ -6,7 +6,7 @@
 
 1.  Clone this repo
 2.  Install dependencies
-3.  Setup your environment variables
+3.  Put the API key in the upload component
 4.  Run the app (probably in dev)
 
 ```bash
