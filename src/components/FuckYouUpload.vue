@@ -1,50 +1,49 @@
 <template>
-  <section class="section">
-    <div class="columns is-centered">
-      <div class="column is-half">
+  <div class="columns is-centered">
+    <div class="column is-half">
 
-        <h1 class="title">Sibei amazing upload responder</h1>
+      <h1 class="title">Sibei amazing upload responder</h1>
 
-        <b-field>
-          <b-upload v-model="dropFiles"
-                    accept="image/*"
-                    drag-drop>
-            <section class="hero is-medium">
-              <div class="hero-body has-text-centered">
-                <p>
-                  <b-icon icon="upload"
-                          size="is-large">
-                  </b-icon>
-                </p>
-                <p>Click or drop also can, but only image ah, also MUST HAVE FACE one hor !!!</p>
-              </div>
-            </section>
-          </b-upload>
-        </b-field>
+      <b-field>
+        <b-upload v-model="dropFiles"
+                  accept="image/*"
+                  drag-drop>
+          <section class="hero is-medium">
+            <div class="hero-body has-text-centered">
+              <p>
+                <b-icon icon="upload"
+                        size="is-large">
+                </b-icon>
+              </p>
+              <p>Click or drop also can, but only image ah, also MUST HAVE FACE one hor!!! I repeat, MUST HAVE FACE HOR!!</p>
+            </div>
+          </section>
+        </b-upload>
+      </b-field>
 
-        <div class="tags">
-          <span v-for="(file, index) in dropFiles"
-                :key="index"
-                class="tag is-primary">
-            {{file.name}}
-            <button class="delete is-small"
-                    type="button"
-                    @click="deleteDropFile(index)">
-            </button>
-          </span>
-        </div>
-
-        <button class="button is-danger"
-                @click="sendToAzure">Ok steady</button>
-
-        <h2 class="subtitle">Response</h2>
-        <div class="content">
-          <pre>{{ data }}</pre>
-        </div>
-
+      <div class="tags">
+        <span v-for="(file, index) in dropFiles"
+              :key="index"
+              class="tag is-primary">
+          {{file.name}}
+          <button class="delete is-small"
+                  type="button"
+                  @click="deleteDropFile(index)">
+          </button>
+        </span>
       </div>
+
+      <button class="button is-danger"
+              :disabled="isDisabled"
+              @click="sendToAzure">Ok steady</button>
+
+      <h2 class="subtitle">Response: {{ status }}</h2>
+      <div class="content">
+        <pre>{{ response }}</pre>
+      </div>
+
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -53,8 +52,9 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      data: `Now got nothing la`,
-      dropFiles: []
+      status: '',
+      dropFiles: [],
+      response: `Now got nothing la`
     }
   },
   methods: {
@@ -80,12 +80,24 @@ export default {
           'Content-Type': 'application/octet-stream'
         }
       })
-      .then(res => this.data = res.data)
-      .catch(e => this.data = e)
+      .then(res => {
+        this.response = res
+        this.status = res.response.status
+      })
+      .catch(e => {
+        this.response = e
+        this.status = e.response.status
+      })
+    }
+  },
+  computed: {
+    isDisabled () {
+      return this.dropFiles.length === 0
     }
   }
 }
 </script>
 
 <style scoped>
+
 </style>
