@@ -3,7 +3,9 @@
     <div class="container is-centered">
 
       <h2 class="subtitle">Response</h2>
-      <p>{{ data }}</p>
+      <div class="content">
+        <pre>{{ data }}</pre>
+      </div>
 
       <b-field>
         <b-upload v-model="dropFiles"
@@ -41,16 +43,13 @@
 </template>
 
 <script>
-require('dotenv').config()
 import axios from 'axios'
 
 export default {
   data () {
     return {
       data: null,
-      dropFiles: [],
-      name: 'kaixiang',
-      url: process.env.FACIAL_RECOGNITION_URL
+      dropFiles: []
     }
   },
   methods: {
@@ -66,14 +65,15 @@ export default {
           })
         return
       }
-      axios.post(
-        `${this.url}${this.name}`,
-        this.dropFiles[0],
-        {
-          headers: {
-            'Ocp-Apim-Subscription-Key': process.env.FACIAL_RECOGNITION_KEY,
-            'Content-Type': 'application/octet-stream'
-          }
+      const url = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/facelists/iotfaces1/persistedFaces?userData='
+      const name = 'kaixiang'
+      const apiKey = 'YOUR-API-KEY' // PUT THE API KEY HERE
+
+      axios.post(`${url}${name}`, this.dropFiles[0], {
+        headers: {
+          'Ocp-Apim-Subscription-Key': apiKey,
+          'Content-Type': 'application/octet-stream'
+        }
       })
       .then(res => {
         console.log(res.data)
