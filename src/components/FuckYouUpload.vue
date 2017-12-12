@@ -71,7 +71,7 @@ export default {
         return
       }
       const url = 'https://southeastasia.api.cognitive.microsoft.com/face/v1.0/facelists/iotfaces1/persistedFaces?userData='
-      const name = 'kaixiang'
+      const name = 'demo'
       const apiKey = 'YOUR API KEY' // PUT THE API KEY HERE
 
       axios.post(`${url}${name}`, this.dropFiles[0], {
@@ -82,7 +82,7 @@ export default {
       })
       .then(res => {
         this.response = res
-        this.status = res.response.status
+        this.status = res.status
       })
       .catch(e => {
         this.response = e
