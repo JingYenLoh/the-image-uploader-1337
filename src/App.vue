@@ -50,4 +50,12 @@ li {
 a {
   color: #42b983;
 }
+
+.fields {
+  padding-bottom: 16px
+}
+
+.input {
+  margin-bottom: 8px
+}
 </style>
