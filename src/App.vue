@@ -1,13 +1,13 @@
 <template>
   <section class="section">
     <div class="container is-centered">
-      <fuck-you-upload/>
+      <Uploader/>
     </div>
   </section>
 </template>
 
 <script>
-import FuckYouUpload from './components/FuckYouUpload'
+import Uploader from './components/Uploader'
 
 export default {
   name: 'app',
@@ -17,7 +17,7 @@ export default {
     }
   },
   components: { 
-    'fuck-you-upload': FuckYouUpload
+    'Uploader': Uploader
   }
 }
 </script>

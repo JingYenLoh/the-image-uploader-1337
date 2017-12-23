@@ -2,7 +2,7 @@
   <div class="columns is-centered">
     <div class="column is-half">
 
-      <h1 class="title">Xavier access manager</h1>
+      <h1 class="title">Xavier smartlock access manager</h1>
 
       <b-field>
         <b-upload v-model="dropFiles"
@@ -75,7 +75,7 @@ export default {
     return {
       status: '',
       dropFiles: [],
-      response: `Now got nothing la`,
+      response: `Nothing at the moment`,
       persistedId: null,
       name: null,
       password: null
